@@ -21,12 +21,12 @@ async function createAdmin() {
     }
 
     // Hash password
-    const hashedPassword = await bcrypt.hash("Surendra*637753#", 10);
+    const hashedPassword = await bcrypt.hash("PURSHOTAM@1003OREpgis", 10);
 
     // Create Admin 
     const admin = await User.create({
-      name: "Sachin marmat",
-      email: "surendrabairwa852@gmail.com",
+      name: "Purshotam gaur",
+      email: "ptpurshotam@gmail.com",
       password: hashedPassword,
       role: "admin",
       isVerified: true

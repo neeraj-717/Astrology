@@ -50,7 +50,7 @@ exports.submitContactForm = async (req, res) => {
               <li><strong>Message:</strong> ${message}</li>
             </ul>
             <br/>
-            <p>Best Regards,<br/>The PixelGenix Team</p>
+            <p>Best Regards,<br/>The Pandit Purshotan Gaur </p>
           `
         ),
       ]);
