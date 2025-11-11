@@ -31,10 +31,13 @@ console.log("hello createblog")
 // -----------------Get all team members---------------------------
 exports.getBlog = async (req, res) => {
   try {
+    console.log('Fetching blogs...');
     const blog = await Blog.find().sort({ createdAt: -1 });
+    console.log('Blogs found:', blog.length);
     res.json(blog);
   } catch (err) {
-    res.status(500).json({ msg: "Server error" });
+    console.error('Error in getBlog:', err);
+    res.status(500).json({ msg: "Server error", error: err.message });
   }
 };
 

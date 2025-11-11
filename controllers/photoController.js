@@ -30,10 +30,13 @@ console.log("hello createphoto")
 // -----------------Get all team members---------------------------
 exports.getPhoto = async (req, res) => {
   try {
+    console.log('Fetching photos...');
     const photo = await Photo.find().sort({ createdAt: -1 });
+    console.log('Photos found:', photo.length);
     res.json(photo);
   } catch (err) {
-    res.status(500).json({ msg: "Server error" });
+    console.error('Error in getPhoto:', err);
+    res.status(500).json({ msg: "Server error", error: err.message });
   }
 };
 

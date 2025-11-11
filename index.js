@@ -7,8 +7,12 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 app.use(cors({
   origin: [
-    "https://astrology-new-seven.vercel.app",  // <-- add https://
-    "http://localhost:5173"                    // for local dev
+    "https://astrology-new-seven.vercel.app",  // production
+    "http://localhost:5173",                   // vite dev server
+    "http://localhost:3000",                   // react dev server
+    "http://localhost:3001",                   // alternative port
+    "http://127.0.0.1:5173",                   // alternative localhost
+    "http://127.0.0.1:3000"                    // alternative localhost
   ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
@@ -20,9 +24,13 @@ mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-  .then(() => console.log("✅ MongoDB Atlas connected successfully"))
+  .then(() => {
+    console.log("✅ MongoDB Atlas connected successfully");
+    console.log("Database:", mongoose.connection.db.databaseName);
+  })
   .catch(err => {
     console.error("❌ MongoDB connection error:", err.message);
+    console.error("Full error:", err);
     process.exit(1);
   });
 

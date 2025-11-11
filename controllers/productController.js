@@ -37,10 +37,13 @@ exports.createProduct = async (req, res) => {
 // -----------------Get all team products---------------------------
 exports.getProducts = async (req, res) => {
   try {
+    console.log('Fetching products...');
     const products = await Product.find().sort({ createdAt: -1 });
+    console.log('Products found:', products.length);
     res.json(products);
   } catch (err) {
-    res.status(500).json({ msg: "Server error" });
+    console.error('Error in getProducts:', err);
+    res.status(500).json({ msg: "Server error", error: err.message });
   }
 };
 
