@@ -37,6 +37,16 @@ mongoose.connect(process.env.MONGO_URI, {
 //  Routes
 app.get("/", (req, res) => res.send("Backend is running "));
 
+// Health check endpoint
+app.get("/api/health", (req, res) => {
+  res.json({ 
+    status: "OK", 
+    message: "Backend is healthy",
+    timestamp: new Date().toISOString(),
+    database: mongoose.connection.readyState === 1 ? "Connected" : "Disconnected"
+  });
+});
+
 // app.get("/api/users", async (req, res) => {
 //   const users = await User.find();
 //   res.json(users);
@@ -52,6 +62,20 @@ app.use("/api/cart", require("./routes/cartRoutes"));
 app.use("/api/orders", require("./routes/orderRoutes"));
 app.use("/api/kundli", require("./routes/kundliRoutes"));
 app.use("/api/admin", require("./routes/adminRoutes"));
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error('Error:', err);
+  res.status(500).json({ 
+    msg: "Server error", 
+    error: process.env.NODE_ENV === 'development' ? err.message : 'Internal server error'
+  });
+});
+
+// 404 handler
+app.use((req, res) => {
+  res.status(404).json({ msg: 'Route not found' });
+});
 
 // app.post("/api/users", async (req, res) => {
 //   try {
