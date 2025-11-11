@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 app.use(cors({
   origin: [
-    "https://astrologyf.vercel.app",  
+    "https://astrology-new-seven.vercel.app/",  
     "http://localhost:5173"                    
   ],
   methods: ["GET", "POST", "PUT", "DELETE"],
